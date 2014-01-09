@@ -32,48 +32,10 @@
 /* 1 - Typographie */
 
 @font-face {
-    font-family: Libertine;
-    font-style: normal;
-    font-weight: normal;
-    src: url(libertine/semibold.woff) format('woff'),
-        url(libertine/semibold.otf) format('opentype'),
-        url(libertine/semibold.svg) format('svg');
-}
-
-@font-face {
-    font-family: Libertine;
-    font-style: italic;
-    font-weight: normal;
-    src: url(libertine/semibold-italic.woff) format('woff'),
-        url(libertine/semibold-italic.otf) format('opentype'),
-        url(libertine/semibold-italic.svg) format('svg');
-}
-
-@font-face {
-    font-family: Libertine;
-    font-style: normal;
-    font-weight: bold;
-    src: url(libertine/bold.woff) format('woff'),
-        url(libertine/bold.otf) format('opentype'),
-        url(libertine/bold.svg) format('svg');
-}
-
-@font-face {
-    font-family: Libertine;
-    font-style: italic;
-    font-weight: bold;
-    src: url(libertine/bold-italic.woff) format('woff'),
-        url(libertine/bold-italic.otf) format('opentype'),
-        url(libertine/bold-italic.svg) format('svg');
-}
-
-@font-face {
-    font-family: Liber-mono;
-    font-style: normal;
-    font-weight: normal;
-    src: url(libertine/mono.woff) format('woff'),
-        url(libertine/mono.otf) format('opentype'),
-        url(libertine/mono.svg) format('svg');
+  font-family: 'Droid Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Droid Serif'), local('DroidSerif'), url(http://themes.googleusercontent.com/static/fonts/droidserif/v4/0AKsP294HTD-nvJgucYTaIbN6UDyHWBl620a-IRfuBk.woff) format('woff');
 }
 
 /* 2 - Général */
@@ -81,8 +43,8 @@
 html {
     background-color: #121315;
     color: #CCCCCC;
-    font-family: Libertine, serif;
-    font-size: 125%; /*=20px*/
+    font-family: 'Droid Serif', serif;
+    font-size: 100%; /*=20px*/
     -epub-hyphens: auto;
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
@@ -92,7 +54,7 @@ html {
 
 body {
     margin: 0 auto;
-    max-width: 600px;
+    max-width: 800px;
     width: 80%;
 }
 
@@ -151,14 +113,27 @@ a:hover, a:focus {
     border-color: inherit;
 }
 
-hr {
+hr{
+    color: #DDDDDD;
+    background-color: #DDDDDD;
+    height: 1px;
+}
+
+.entry_content hr{
+    color: #DDDDDD;
+    background-color: #DDDDDD;
+    height: 1px;
+}
+
+.entries hr {
     border: 0;
     height: 1rem;
     margin: 1rem auto;
     outline: 0;
     width: 0;
+    color: #ccc;
 }
-hr::after {content: "❦";}
+.entries hr::after {content: "❦";}
 
 .skip {
     font-family: Liber-petit, Libertine, serif;
@@ -244,4 +219,14 @@ a.logo {border: 0; margin: 0; text-transform: uppercase;}
 .logo img {
     outline: 0;
     width: 20%;
+}
+
+.entry_info{
+
+    color: #CCCCCC;
+    font-size: 0.75em;
+    border-bottom: 1px dotted #DD3800;
+    color: inherit;
+    margin-bottom: -1px;
+    text-decoration: none;
 }

@@ -32,22 +32,10 @@
 /* 1 - Typographie */
 
 @font-face {
-  font-family: 'Nunito';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Nunito-Light'), url(http://themes.googleusercontent.com/static/fonts/nunito/v5/1TiHc9yag0wq3lDO9cw0vj8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
-}
-@font-face {
-  font-family: 'Nunito';
+  font-family: 'Actor';
   font-style: normal;
   font-weight: 400;
-  src: local('Nunito-Regular'), url(http://themes.googleusercontent.com/static/fonts/nunito/v5/0rdItLTcOd8TSMl72RUU5w.woff) format('woff');
-}
-@font-face {
-  font-family: 'Nunito';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Nunito-Bold'), url(http://themes.googleusercontent.com/static/fonts/nunito/v5/TttUCfJ272GBgSKaOaD7Kj8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+  src: local('Actor Regular'), local('Actor-Regular'), url(http://themes.googleusercontent.com/static/fonts/actor/v4/gZ8EM_Gzaq4WRjCimioyzQ.woff) format('woff');
 }
 
 /* 2 - Général */
@@ -55,7 +43,7 @@
 html {
     background-color: #ffffff;
     color: #000000;
-    font-family: Nunito, serif;
+    font-family: Actor, serif;
     font-size: 100%; /*=20px*/
     -epub-hyphens: auto;
     -moz-hyphens: auto;
@@ -238,7 +226,7 @@ a.logo {border: 0; margin: 0; text-transform: uppercase;}
 }
 
 .entry_info{
-    border-top: solid 1px #DDDDDD;
-    border-bottom: solid 1px #DDDDDD;
+
     color: #399FC3;
+    font-size: 0.75em;
 }

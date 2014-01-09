@@ -58,11 +58,12 @@ endforeach;
 <head>
 	<meta charset="utf-8">
 
-	<title>The HTML5 Herald</title>
+	<title>Day One</title>
 	<meta name="description" content="The HTML5 Herald">
 	<meta name="author" content="SitePoint">
 
-	<link rel="stylesheet" href="./DayOne.css?v=1.0">
+	<?php $css = (!empty($_GET['style'])) ? $_GET['style'] : 'style'; ?>
+	<link rel="stylesheet" href="./<?php echo $css; ?>.css?v=1.0">
 
 	<!--[if lt IE 9]>
 	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -73,9 +74,10 @@ endforeach;
 
 	<ul id="contenu" class="journal">
 		<?php foreach($entries as $key => $entry): ?>
-			<?php // Traitement
+
+			<?php // prep var
 				$previous_month_is_different = ($last_month != date('n', $entry['Creation Date']));
-				$next_month_is_different = (date('n', $entry['Creation Date']) != date('n', $entries[$key+1]['Creation Date']));
+				$next_month_is_different = (empty($entries[$key+1]) || date('n', $entry['Creation Date']) != date('n', $entries[$key+1]['Creation Date'])); // If next month is different from current month
 			?>
 
 			<!-- head -->
@@ -89,16 +91,17 @@ endforeach;
 			
 			<!-- content -->
 			<li class="entry_content">
-				<h6 class="date"><a href=""><?php echo date('l j F Y, H:i', $entry['Creation Date']); ?></a></h6>
+				<h6 class="date"><a href="#<?php echo $entry['Creation Date']; ?>" id="<?php echo $entry['Creation Date']; ?>"><?php echo date('l j F Y, H:i', $entry['Creation Date']); ?></a></h6>
 				<h3><strong><?php echo first_sentence($entry['Entry Text']); ?></strong></h3>
 				<p><?php echo nl2br($entry['Entry Text']); ?></p>
 
 				<br>
 
 				<!-- location info and weather -->
-				<?php if(!empty($entry['Location']['Place Name']) OR ! empty($entry['Location']['Locality'] OR !empty($entry['Location']['Administrative Area']))) : ?>
+				<?php if(!empty($entry['Location']['Place Name']) OR ! empty($entry['Location']['Locality']) OR !empty($entry['Location']['Administrative Area'])): ?>
 					<div class="entry_info">
-						<?php echo $entry['Location']['Place Name']; ?>, <?php echo $entry['Location']['Locality']; ?>, <?php echo $entry['Location']['Administrative Area']; ?>, 
+						<?php echo $entry['Location']['Place Name']; ?>, <?php echo $entry['Location']['Locality']; ?>, <?php echo $entry['Location']['Administrative Area']; ?> • 
+						<?php echo $entry['Weather']['Celsius']; ?>°C <?php echo $entry['Weather']['Description']; ?>
 					</div>
 				<?php endif; ?>
 
@@ -106,9 +109,9 @@ endforeach;
 			</li>
 
 			<!-- end -->
-			<?php if($next_month_is_different): // If next month is different from current month ?>
+			<?php if($next_month_is_different): ?>
 				</ul>
-				<br>
+				<br><br><br><br><br>
 			<?php endif; ?>
 
 			<?php $last_month = date('n', $entry['Creation Date']); ?>
@@ -117,12 +120,12 @@ endforeach;
 
 	<hr>
 	<?php 
-	foreach ($entries as $key => $value) {
+	/* foreach ($entries as $key => $value) {
 		echo "<pre>";
 		print_r($value);
 		echo "</pre>";
 
-	}
+	} */
 	?>
 </body>
 </html>
