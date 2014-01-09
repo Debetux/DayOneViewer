@@ -56,7 +56,7 @@ html {
     background-color: #ffffff;
     color: #000000;
     font-family: Nunito, serif;
-    font-size: 125%; /*=20px*/
+    font-size: 100%; /*=20px*/
     -epub-hyphens: auto;
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
@@ -66,7 +66,7 @@ html {
 
 body {
     margin: 0 auto;
-    max-width: 600px;
+    max-width: 800px;
     width: 80%;
 }
 
@@ -137,6 +137,7 @@ hr{
     margin: 1rem auto;
     outline: 0;
     width: 0;
+    color: #000;
 }
 .entries hr::after {content: "❦";}
 
@@ -224,4 +225,8 @@ a.logo {border: 0; margin: 0; text-transform: uppercase;}
 .logo img {
     outline: 0;
     width: 20%;
+}
+
+.date {
+    color:#399FC3;
 }

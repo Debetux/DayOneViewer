@@ -73,10 +73,15 @@ endforeach;
 
 	<ul id="contenu" class="journal">
 		<?php foreach($entries as $key => $entry): ?>
+			<?php // Traitement
+				
+			?>
+
 			<?php if($last_month != date('n', $entry['Creation Date'])): // if previous month is different from current_month ?>
 				<h3><?php echo date('F Y', $entry['Creation Date']); ?></h3>
 				<hr>
 				<ul class="entries">
+					<br>
 			<?php else: ?>
 				
 			<?php endif; ?>
@@ -84,13 +89,14 @@ endforeach;
 			<?php $last_month = date('n', $entry['Creation Date']); ?>
 
 			<li>
-				<h2><a href="#<?php echo $entry['Creation Date']; ?>" id="<?php echo $entry['Creation Date']; ?>"><?php echo date('l j F Y, H:i', $entry['Creation Date']); ?></a></h2><br>
-				<p><?php echo nl2br($entry['Entry Text']); ?></p>
+				<h6 class="date"><?php echo date('l j F Y, H:i', $entry['Creation Date']); ?></h6>
+				<h3><strong><?php echo first_sentence($entry['Entry Text']); ?></strong></h3>
+				<p><?php echo remove_first_sentence(nl2br($entry['Entry Text'])); ?></p>
 				<hr class="styled_hr">
 			</li>
 
 			<?php if(date('n', $entry['Creation Date']) != date('n', $entries[$key+1]['Creation Date'])): // If next month is different from current month ?>
-				</ul>CLOSE
+				</ul>
 			<?php else: ?>
 				
 			<?php endif; ?>
@@ -111,3 +117,53 @@ endforeach;
 	?>
 </body>
 </html>
+
+<?php
+/*** FUNCTIONS ***/
+function first_sentence($text){
+
+		$max = 56;
+
+		$position[] = stripos ($text, '.'); //find first dot position
+		$position[] = stripos ($text, '!');
+		$position[] = stripos ($text, '?');
+		$position = min(array_filter($position));
+
+		if($position) { //if there's a dot in our soruce text do
+			$offset = $position + 1; //prepare offset
+			$first_two = substr($text, 0, $position); //put two first sentences under $first_two
+
+			return $first_two . '.'; //add a dot
+		}
+
+		else {  //if there are no dots
+			//do nothing
+			return false;
+		}
+}
+
+function remove_first_sentence($text){
+
+		$max = 56;
+
+		$position[] = stripos ($text, '.'); //find first dot position
+		$position[] = stripos ($text, '!');
+		$position[] = stripos ($text, '?');
+		$position = min(array_filter($position));
+		$symbol = $text{$position + 1};
+
+		if($position) { //if there's a dot in our soruce text do
+			$offset = $position + 1; //prepare offset
+			$first_two = substr($text, $position + 1); //put two first sentences under $first_two
+
+			return $first_two . $symbol; //add a dot
+		}
+
+		else {  //if there are no dots
+			//do nothing
+			return false;
+		}
+}
+
+
+?>
