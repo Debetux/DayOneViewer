@@ -131,6 +131,12 @@ hr{
     height: 1px;
 }
 
+.entry_content hr{
+    color: #DDDDDD;
+    background-color: #DDDDDD;
+    height: 1px;
+}
+
 .entries hr {
     border: 0;
     height: 1rem;
@@ -229,4 +235,9 @@ a.logo {border: 0; margin: 0; text-transform: uppercase;}
 
 .date {
     color:#399FC3;
+}
+
+.entry_info{
+    border-top: 1px #DDDDDD;
+    border-bottom: 1px #DDDDDD;
 }

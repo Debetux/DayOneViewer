@@ -74,34 +74,40 @@ endforeach;
 	<ul id="contenu" class="journal">
 		<?php foreach($entries as $key => $entry): ?>
 			<?php // Traitement
-				
+				$previous_month_is_different = ($last_month != date('n', $entry['Creation Date']));
+				$next_month_is_different = (date('n', $entry['Creation Date']) != date('n', $entries[$key+1]['Creation Date']));
 			?>
 
-			<?php if($last_month != date('n', $entry['Creation Date'])): // if previous month is different from current_month ?>
+			<!-- head -->
+			<?php if($previous_month_is_different): // if previous month is different from current_month ?>
 				<h3><?php echo date('F Y', $entry['Creation Date']); ?></h3>
 				<hr>
 				<ul class="entries">
 					<br>
-			<?php else: ?>
-				
-			<?php endif; ?>
-
-			<?php $last_month = date('n', $entry['Creation Date']); ?>
-
-			<li>
-				<h6 class="date"><?php echo date('l j F Y, H:i', $entry['Creation Date']); ?></h6>
-				<h3><strong><?php echo first_sentence($entry['Entry Text']); ?></strong></h3>
-				<p><?php echo remove_first_sentence(nl2br($entry['Entry Text'])); ?></p>
-				<hr class="styled_hr">
-			</li>
-
-			<?php if(date('n', $entry['Creation Date']) != date('n', $entries[$key+1]['Creation Date'])): // If next month is different from current month ?>
-				</ul>
-			<?php else: ?>
-				
 			<?php endif; ?>
 
 			
+			<!-- content -->
+			<li class="entry_content">
+				<h6 class="date"><a href=""><?php echo date('l j F Y, H:i', $entry['Creation Date']); ?></a></h6>
+				<h3><strong><?php echo first_sentence($entry['Entry Text']); ?></strong></h3>
+				<p><?php echo nl2br($entry['Entry Text']); ?></p>
+
+				<!-- location info and weather -->
+				<div class="entry_info">
+					dadad
+				</div>
+
+				<?php if(! $next_month_is_different): ?> <hr class=""> <?php endif; ?>
+			</li>
+
+			<!-- end -->
+			<?php if($next_month_is_different): // If next month is different from current month ?>
+				</ul>
+				<br>
+			<?php endif; ?>
+
+			<?php $last_month = date('n', $entry['Creation Date']); ?>
 		<?php endforeach; ?>
 	</ul>
 
@@ -121,7 +127,7 @@ endforeach;
 <?php
 /*** FUNCTIONS ***/
 function first_sentence($text){
-
+	return false;
 		$max = 56;
 
 		$position[] = stripos ($text, '.'); //find first dot position
