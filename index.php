@@ -49,7 +49,7 @@ ksort($entries);
 	<meta name="description" content="The HTML5 Herald">
 	<meta name="author" content="SitePoint">
 
-	<link rel="stylesheet" href="css/styles.css?v=1.0">
+	<link rel="stylesheet" href="./DayOne.css?v=1.0">
 
 	<!--[if lt IE 9]>
 	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -58,12 +58,15 @@ ksort($entries);
 
 <body>
 
-	<?php foreach($entries as $entry): ?>
-		<?php echo date('l j F Y, H:i', $entry['Creation Date']); ?><br>
-		<p><?php echo nl2br($entry['Entry Text']); ?></p>
-		<hr>
-	<?php endforeach; ?>
-
+	<ul id="contenu" class="journal">
+		<?php foreach($entries as $entry): ?>
+			<li>
+				<h2><a href="#<?php echo $entry['Creation Date']; ?>" id="<?php echo $entry['Creation Date']; ?>"><?php echo date('l j F Y, H:i', $entry['Creation Date']); ?></a></h2><br>
+				<p><?php echo nl2br($entry['Entry Text']); ?></p>
+				<hr>
+			</li>
+		<?php endforeach; ?>
+	</ul>
 
 	<hr>
 	<?php 
