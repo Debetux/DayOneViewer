@@ -125,14 +125,20 @@ a:hover, a:focus {
     border-color: inherit;
 }
 
-hr {
+hr{
+    color: #DDDDDD;
+    background-color: #DDDDDD;
+    height: 1px;
+}
+
+.entries hr {
     border: 0;
     height: 1rem;
     margin: 1rem auto;
     outline: 0;
     width: 0;
 }
-hr::after {content: "❦";}
+.entries hr::after {content: "❦";}
 
 .skip {
     font-family: Liber-petit, Libertine, serif;

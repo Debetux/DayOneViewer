@@ -9,8 +9,9 @@ setlocale(LC_ALL, 'fr');
 require_once(__DIR__.'/libs/CFPropertyList/CFPropertyList.php');
 
 
+$entries_by_date = array();
 $entries = array();
-$i = 0;
+
 if ($handle = opendir(DIRECTORY)) {
 	while (false !== ($file = readdir($handle))) {
 		if($file != '.' && $file != '..'){
@@ -25,8 +26,8 @@ if ($handle = opendir(DIRECTORY)) {
 			 */
 			$plist = new CFPropertyList\CFPropertyList(DIRECTORY.$file, CFPropertyList\CFPropertyList::FORMAT_XML);
 			$o = $plist->toArray();
-			$entries[$o["Creation Date"]] = $o;
-			$i++;
+			$entries_by_date[$o["Creation Date"]] = $o;
+			
 
 	   }
    }
@@ -34,11 +35,23 @@ if ($handle = opendir(DIRECTORY)) {
    closedir($handle);
 }
 
-ksort($entries);
+ksort($entries_by_date);
+
+// I want an index with number sorted by date, so we must do that again :
+$i = 0;
+foreach ($entries_by_date as $key_entry => $entry):
+	$entries[$i] = $entries_by_date[$key_entry];
+	$i++;
+endforeach;
 
 ?>
 
-<?php /* HERE IS THE VIEW */ ?>
+<?php 
+	/* HERE IS THE VIEW */
+
+	// Init some variables
+	$last_month = null;
+?>
 <!doctype html>
 
 <html lang="en">
@@ -59,12 +72,30 @@ ksort($entries);
 <body>
 
 	<ul id="contenu" class="journal">
-		<?php foreach($entries as $entry): ?>
+		<?php foreach($entries as $key => $entry): ?>
+			<?php if($last_month != date('n', $entry['Creation Date'])): // if previous month is different from current_month ?>
+				<h3><?php echo date('F Y', $entry['Creation Date']); ?></h3>
+				<hr>
+				<ul class="entries">
+			<?php else: ?>
+				
+			<?php endif; ?>
+
+			<?php $last_month = date('n', $entry['Creation Date']); ?>
+
 			<li>
 				<h2><a href="#<?php echo $entry['Creation Date']; ?>" id="<?php echo $entry['Creation Date']; ?>"><?php echo date('l j F Y, H:i', $entry['Creation Date']); ?></a></h2><br>
 				<p><?php echo nl2br($entry['Entry Text']); ?></p>
-				<hr>
+				<hr class="styled_hr">
 			</li>
+
+			<?php if(date('n', $entry['Creation Date']) != date('n', $entries[$key+1]['Creation Date'])): // If next month is different from current month ?>
+				</ul>CLOSE
+			<?php else: ?>
+				
+			<?php endif; ?>
+
+			
 		<?php endforeach; ?>
 	</ul>
 
