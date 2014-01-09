@@ -12,28 +12,21 @@ require_once(__DIR__.'/libs/CFPropertyList/CFPropertyList.php');
 $entries = array();
 $i = 0;
 if ($handle = opendir(DIRECTORY)) {
-   while (false !== ($file = readdir($handle))) {
-	   if($file != '.' && $file != '..'){
-		   $entries_array[] = $file;
-		   $entry_xml = simplexml_load_file(DIRECTORY.$file);
-		   $entries[$i]['date'] = strtotime($entry_xml->dict->date);
-		   $entries[$i]['content'] = $entry_xml->dict->string[1];
+	while (false !== ($file = readdir($handle))) {
+		if($file != '.' && $file != '..'){
+			
+			// All the files :
+			$entries_array[] = $file;
 
-		   $i++;
 
-		   /*
+			/*
 			 * create a new CFPropertyList instance which loads the sample.plist on construct.
 			 * since we know it's an XML file, we can skip format-determination
 			 */
 			$plist = new CFPropertyList\CFPropertyList(DIRECTORY.$file, CFPropertyList\CFPropertyList::FORMAT_XML);
-
-			/*
-			 * retrieve the array structure of sample.plist and dump to stdout
-			 */
-
-			echo '<pre>';
-			var_dump( $plist->toArray() );
-			echo '</pre>';
+			$o = $plist->toArray();
+			$entries[$o["Creation Date"]] = $o;
+			$i++;
 
 	   }
    }
@@ -41,6 +34,7 @@ if ($handle = opendir(DIRECTORY)) {
    closedir($handle);
 }
 
+ksort($entries);
 
 ?>
 
@@ -65,8 +59,8 @@ if ($handle = opendir(DIRECTORY)) {
 <body>
 
 	<?php foreach($entries as $entry): ?>
-		<?php echo strftime('%A %m %B %Y à %R', $entry['date']); ?><br>
-		<p><?php echo $entry['content']; ?></p>
+		<?php echo date('l j F Y, H:i', $entry['Creation Date']); ?><br>
+		<p><?php echo nl2br($entry['Entry Text']); ?></p>
 		<hr>
 	<?php endforeach; ?>
 
