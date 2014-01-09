@@ -93,10 +93,14 @@ endforeach;
 				<h3><strong><?php echo first_sentence($entry['Entry Text']); ?></strong></h3>
 				<p><?php echo nl2br($entry['Entry Text']); ?></p>
 
+				<br>
+
 				<!-- location info and weather -->
-				<div class="entry_info">
-					dadad
-				</div>
+				<?php if(!empty($entry['Location']['Place Name']) OR ! empty($entry['Location']['Locality'] OR !empty($entry['Location']['Administrative Area']))) : ?>
+					<div class="entry_info">
+						<?php echo $entry['Location']['Place Name']; ?>, <?php echo $entry['Location']['Locality']; ?>, <?php echo $entry['Location']['Administrative Area']; ?>, 
+					</div>
+				<?php endif; ?>
 
 				<?php if(! $next_month_is_different): ?> <hr class=""> <?php endif; ?>
 			</li>
@@ -113,11 +117,10 @@ endforeach;
 
 	<hr>
 	<?php 
-	foreach ($entries_array as $key => $value) {
-	$xml = simplexml_load_file(DIRECTORY.$value);
-	echo "<pre>";
-	print_r($xml);
-	echo "</pre>";
+	foreach ($entries as $key => $value) {
+		echo "<pre>";
+		print_r($value);
+		echo "</pre>";
 
 	}
 	?>

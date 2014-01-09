@@ -238,6 +238,7 @@ a.logo {border: 0; margin: 0; text-transform: uppercase;}
 }
 
 .entry_info{
-    border-top: 1px #DDDDDD;
-    border-bottom: 1px #DDDDDD;
+    border-top: solid 1px #DDDDDD;
+    border-bottom: solid 1px #DDDDDD;
+    color: #399FC3;
 }
