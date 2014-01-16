@@ -17,6 +17,9 @@ require_once(__DIR__.'/classes/Diary.class.php');
 require_once(__DIR__.'/classes/Entry.class.php');
 require_once(__DIR__.'/classes/functions.php');
 
+
+$requested_action = (empty($_GET['action'])) ? 'index' : $_GET['action'] ;
+
 /**
  * Start the cache
  */

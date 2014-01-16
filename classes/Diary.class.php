@@ -11,9 +11,9 @@ class Diary{
 
 
 
-	public function __construct($path = null) {
+	public function __construct($path = null, $load = true) {
 		$this->path = $path;
-		if($this->path) $this->load();
+		if($this->path && $load = true) $this->load();
 	}
 
 	/**
@@ -21,9 +21,19 @@ class Diary{
 	 */
 
 	public function getEntries(){
+		if(! $this->entries) $this->load();
 		return $this->entries;
 	}
 
+
+	/**
+	 * Return a pointer on an new entry object
+	 */
+
+	public function createEntry(){
+		$entry = new Entry($this->path);
+		return $entry;
+	}
 
 	/**
 	 * Load all the entries in memory.

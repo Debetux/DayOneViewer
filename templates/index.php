@@ -76,7 +76,7 @@
 	<ul id="write_form" class="journal">
 			<!-- content -->
 			<li class="entry_content">
-				<form action="./" method="post">
+				<form action="./addEntry.php" method="post">
 					<h6 class="date" name="date"><a href="#<?php echo $entry['Creation Date']; ?>" id="<?php echo $entry['Creation Date']; ?>"><?php echo date('l j F Y, H:i', time()); ?></a></h6>
 					<br>
 					<div id="editor"><textarea name="entry_text"></textarea></div>
@@ -89,7 +89,7 @@
 					<input type="hidden" name="latitude"/>
 					<input type="hidden" name="longitude"/>
 
-					<input type="submit" value="Add"/>
+					<input type="submit" class="button-submit" value="Add"/>
 				</form>
 
 			</li>
