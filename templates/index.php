@@ -25,7 +25,7 @@
 
 	<ul id="contenu" class="journal">
 		<?php foreach($entries as $key => $entry): ?>
-			<?php if($key == 2) break; ?>
+			<?php if($key == 42) break; ?>
 			<?php // prep var
 				$previous_month_is_different = ($last_month != date('n', $entry['Creation Date']));
 				$next_month_is_different = (empty($entries[$key+1]) || date('n', $entry['Creation Date']) != date('n', $entries[$key+1]['Creation Date'])); // If next month is different from current month
