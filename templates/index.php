@@ -45,7 +45,7 @@
 				<h6 class="date"><a href="#<?php echo $entry['Creation Date']; ?>" id="<?php echo $entry['Creation Date']; ?>"><?php echo date('l j F Y, H:i', $entry['Creation Date']); ?></a></h6>
 				<h3><strong><?php echo gen_title($entry['Entry Text']); ?></strong></h3>
 				<?php if($entry['Media URL']): ?><div><img class="entry_media" src="<?php echo $entry['Media URL']; ?>" /></div><?php endif; ?>
-				<p><?php echo format_content($entry['Entry Text']); ?></p>
+				<p class="entry_text"><?php echo format_content($entry['Entry Text']); ?></p>
 				
 				<br>
 
@@ -84,17 +84,47 @@
 				<br>
 
 				<!-- location info and weather -->
-				<?php if(!empty($entry['Location']['Place Name']) OR ! empty($entry['Location']['Locality']) OR !empty($entry['Location']['Administrative Area'])): ?>
-					<div class="entry_info">
-						<?php echo $entry['Location']['Place Name']; ?>, <?php echo $entry['Location']['Locality']; ?>, <?php echo $entry['Location']['Administrative Area']; ?> • 
-						<?php echo $entry['Weather']['Celsius']; ?>°C <?php echo $entry['Weather']['Description']; ?>
-					</div>
-				<?php endif; ?>
+				
+				<div class="entry_info" id="entry_info_form" style="display:none;">
+					
+				</div>
 
-				<?php if(! $next_month_is_different): ?> <hr class=""> <?php endif; ?>
 			</li>
 	</ul>
 
+	<script type="text/javascript">
+
+	function getGPSCoordinate(position) {
+		var infopos = "Position déterminée :\n";
+		infopos += "Latitude : "+position.coords.latitude +"\n";
+		infopos += "Longitude: "+position.coords.longitude+"\n";
+		infopos += "Altitude : "+position.coords.altitude +"\n";
+
+		var url = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+position.coords.latitude+','+position.coords.longitude+'&sensor=false';
+		var reversed_location;
+
+		console.log(url);
+
+		// Vanilla
+		var httpRequest = new XMLHttpRequest()
+		httpRequest.onreadystatechange = function (data) {
+			if (httpRequest.readyState === 4) {
+				if (httpRequest.status === 200) {
+					reversed_location = JSON.parse(httpRequest.responseText);
+					document.getElementById("entry_info_form").innerHTML = reversed_location['results'][0]['formatted_address'];
+					document.getElementById("entry_info_form").style.display = "block";
+				}
+			}
+		}
+		httpRequest.open('GET', url)
+		httpRequest.send()
+
+	}
+
+	if(navigator.geolocation)
+		navigator.geolocation.getCurrentPosition(getGPSCoordinate);
+
+	</script>
 
 	<?php if(!empty($_GET['editor'])): ?>
 	<style>
@@ -112,6 +142,7 @@
 			padding: 3px;
 		}
 	</style>
+
 	<!-- Ace Editor -->
 	<script src="third_party/Ace/ace.js" type="text/javascript" charset="utf-8"></script>
 	<script src="third_party/Ace/theme-tomorrow_night_eighties.js" type="text/javascript" charset="utf-8"></script>
