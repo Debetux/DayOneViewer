@@ -1,1 +1,3 @@
-*.doentry
+Journal.dayone/
+cache/*
+third_party/Ace/*
