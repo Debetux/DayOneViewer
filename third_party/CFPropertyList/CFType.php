@@ -122,6 +122,34 @@ class CFString extends CFType {
 }
 
 /**
+ * String Type of CFPropertyList
+ * @author Rodney Rehm <rodney.rehm@medialize.de>
+ * @author Christian Kruse <cjk@wwwtech.de>
+ * @package plist
+ * @subpackage plist.types
+ */
+class CFReal extends CFType {
+  /**
+   * Get XML-Node.
+   * @param DOMDocument $doc DOMDocument to create DOMNode in
+   * @param string $nodeName For compatibility reasons; just ignore it
+   * @return DOMNode &lt;string&gt;-Element
+   */
+  public function toXML(DOMDocument $doc,$nodeName="") {
+    return parent::toXML($doc, 'real');
+  }
+
+  /**
+   * convert value to binary representation
+   * @param CFBinaryPropertyList The binary property list object
+   * @return The offset in the object table
+   */
+  public function toBinary(CFBinaryPropertyList &$bplist) {
+    return $bplist->stringToBinary($this->value);
+  }
+}
+
+/**
  * Number Type of CFPropertyList
  * @author Rodney Rehm <rodney.rehm@medialize.de>
  * @author Christian Kruse <cjk@wwwtech.de>
@@ -558,7 +586,7 @@ class CFArray extends CFType implements Iterator, ArrayAccess {
  * @package plist
  * @subpackage plist.types
  */
-class CFDictionary extends CFType implements Iterator {
+class CFDictionary extends CFType implements Iterator, ArrayAccess {
   /**
    * Position of iterator {@link http://php.net/manual/en/class.iterator.php}
    * @var integer
@@ -737,6 +765,59 @@ class CFDictionary extends CFType implements Iterator {
    */
   public function valid() {
     return isset($this->iteratorKeys[$this->iteratorPosition]) && isset($this->value[$this->iteratorKeys[$this->iteratorPosition]]);
+  }
+
+    /************************************************************************************************
+   *    ArrayAccess   I N T E R F A C E
+   ************************************************************************************************/
+
+  /**
+   * Determine if the array's key exists
+   * @param string $key the key to check
+   * @return bool true if the offset exists, false if not
+   * @link http://php.net/manual/en/arrayaccess.offsetexists.php
+   * @uses $value to check if $key exists
+   * @author Sean Coates <sean@php.net>
+   */
+  public function offsetExists($key) {
+    return isset($this->value[$key]);
+  }
+
+  /**
+   * Fetch a specific key from the CFArray
+   * @param string $key the key to check
+   * @return mixed the value associated with the key; null if the key is not found
+   * @link http://php.net/manual/en/arrayaccess.offsetget.php
+   * @uses get() to get the key's value
+   * @author Sean Coates <sean@php.net>
+   */
+  public function offsetGet($key) {
+    return $this->get($key);
+  }
+
+  /**
+   * Set a value in the array
+   * @param string $key the key to set
+   * @param string $value the value to set
+   * @return void
+   * @link http://php.net/manual/en/arrayaccess.offsetset.php
+   * @uses setValue() to set the key's new value
+   * @author Sean Coates <sean@php.net>
+   */
+  public function offsetSet($key, $value) {
+    return $this->setValue($value);
+  }
+
+  /**
+   * Unsets a value in the array
+   * <b>Note:</b> this dummy does nothing
+   * @param string $key the key to set
+   * @return void
+   * @link http://php.net/manual/en/arrayaccess.offsetunset.php
+   * @author Sean Coates <sean@php.net>
+   */
+  public function offsetUnset($key) {
+
   }
 
 }

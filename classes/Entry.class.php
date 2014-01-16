@@ -46,52 +46,27 @@ class Entry implements ArrayAccess{
 		/*
 		 * create a new CFPropertyList instance without loading any content
 		 */
-		$this->propertyListData = new CFPropertyList();
+		$this->propertyListData = new CFPropertyList\CFPropertyList();
 
 		/*
 		 * Manuall Create the sample.xml.plist 
 		 */
 		// the Root element of the PList is a Dictionary
-		$plist->add( $dict = new CFDictionary() );
+		$this->propertyListData->add( $dict = new CFPropertyList\CFDictionary() );
 
-		$dict->add( 'Activity', new CFString( 'Stationary' ) );
-		$dict->add( 'Creation Date', new CFDate( gmmktime() ) );
+		$dict->add( 'Activity', new CFPropertyList\CFString( 'Stationary' ) );
+		$dict->add( 'Creation Date', new CFPropertyList\CFDate( time() ) );
 
-		$dict->add( $creator = new CFDictionary() );
-			$creator->add( 'Device Agent', new CFString( DEVICE_AGENT ) );
-			$creator->add( 'Generation Date', new CFDate( gmmktime() ) );
-			$creator->add( 'Host Name', new CFString( HOST_NAME ) );
-			$creator->add( 'OS Agent', new CFString( OS_AGENT ) );
-			$creator->add( 'Software Agent', new CFString( SOFTWARE_AGENT ) );
+
 
 		// <key>Year Of Birth</key><integer>1965</integer>
-		$dict->add( 'Year Of Birth', new CFNumber( 1965 ) );
-
-		
-
-		// <key>Pets Names</key><array/>
-		$dict->add( 'Pets Names', new CFArray() );
-
-		// <key>Picture</key><data>PEKBpYGlmYFCPA==</data>
-		// to keep it simple we insert an already base64-encoded string
-		$dict->add( 'Picture', new CFData( 'PEKBpYGlmYFCPA==', true ) );
-
-		// <key>City Of Birth</key><string>Springfield</string>
-		$dict->add( 'City Of Birth', new CFString( 'Springfield' ) );
-
-		// <key>Name</key><string>John Doe</string>
-		$dict->add( 'Name', new CFString( 'John Doe' ) );
-
-		// <key>Kids Names</key><array><string>John</string><string>Kyra</string></array>
-		$dict->add( 'Kids Names', $array = new CFArray() );
-		$array->add( new CFString( 'John' ) );
-		$array->add( new CFString( 'Kyra' ) );
+		$dict->add( 'Starred', new CFPropertyList\CFBoolean( false ) );
 
 
 		/*
 		 * Save PList as XML
 		 */
-		$plist->saveXML( __DIR__.'/example-create-01.xml.plist' );
+		$this->propertyListData->saveXML( __DIR__.'/example-create-01.xml.plist' );
 	}
 
 	/**
