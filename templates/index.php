@@ -85,14 +85,23 @@
 
 				<!-- location info and weather -->
 				
-				<div class="entry_info" id="entry_info_form" style="display:none;">
+				<div class="entry_info hidden" id="entry_info_form">
 					
 				</div>
+
+				<input type="hidden" name="latitude"/>
+				<input type="hidden" name="longitude"/>
+
+				<input type="submit" value="Add"/>
 
 			</li>
 	</ul>
 
 	<script type="text/javascript">
+
+	/*
+	 * Location, useful when adding entries
+	 */
 
 	function getGPSCoordinate(position) {
 		var infopos = "Position déterminée :\n";
@@ -113,6 +122,9 @@
 					reversed_location = JSON.parse(httpRequest.responseText);
 					document.getElementById("entry_info_form").innerHTML = reversed_location['results'][0]['formatted_address'];
 					document.getElementById("entry_info_form").style.display = "block";
+
+					document.querySelector('[name=latitude]').value = position.coords.latitude;
+					document.querySelector('[name=longitude]').value = position.coords.longitude;
 				}
 			}
 		}
