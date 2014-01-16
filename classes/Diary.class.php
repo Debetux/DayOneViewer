@@ -16,22 +16,17 @@ class Diary{
 		if($this->path) $this->load();
 	}
 
+	/**
+	 * Return an array of all the entries, sorted by date.
+	 */
+
 	public function getEntries(){
 		return $this->entries;
 	}
 
 
 	/**
-	 * Return an array of all the entries.
-	 */
-
-	public function parse_journal(){
-		
-	}
-
-
-	/**
-	 * Load all the entries in memory
+	 * Load all the entries in memory.
 	 */
 
 	public function load(){
@@ -65,4 +60,5 @@ class Diary{
 
 		return ($a['Creation Date'] > $b['Creation Date']) ? +1 : -1;
 	}
+
 }

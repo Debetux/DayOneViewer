@@ -16,18 +16,28 @@ class Entry implements ArrayAccess{
 
 
 
+	/**
+	 * If filename is given, parse the entry, or it generates an new entry
+	 */
+
 	public function __construct($diary_directory = null, $filename = null) {
 		$this->diary_directory = $diary_directory;
 		$this->filename = $filename;
 
-		if($this->diary_directory & $this->filename){
+		if($this->diary_directory && $this->filename){
 			$this->entries_directory = $this->diary_directory.'entries/';
 			$this->photos_directory = $this->diary_directory.'photos/';
 			$this->filepath = $this->entries_directory.$this->filename;
-
-			$this->load();
 		}
+
+		if($this->filename) $this->load();
+
 	}
+
+
+	/**
+	 * Parse the entry xml file.
+	 */
 
 	public function load(){
 		/*
@@ -39,8 +49,22 @@ class Entry implements ArrayAccess{
 		$this->set_media();
 	}
 
+
+	/**
+	 * Add a photos to the entry
+	 */
+
 	private function set_media(){
 		$this->entry_data_array['Media URL'] = (file_exists($this->photos_directory.$this->entry_data_array['UUID'].'.jpg')) ? $this->photos_directory.$this->entry_data_array['UUID'].'.jpg' : false;
+	}
+
+
+	/**
+	 * Generate an UUID.
+	 */
+
+	static function gen_uuid(){
+		return substr(shell_exec('uuidgen | sed s/-//g'), 1);
 	}
 
 

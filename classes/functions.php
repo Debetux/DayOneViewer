@@ -1,6 +1,6 @@
 <?php
 
-function gen_title(&$text){
+function gen_title($text){
 
 	$position_nl = stripos($text, "\n");
 
@@ -16,10 +16,6 @@ function format_content($text){
 		return nl2br(substr($text, $position_nl+1));
 
 	else return nl2br($text);
-}
-
-function gen_uuid(){
-	return substr(shell_exec('uuidgen | sed s/-//g'), 1);
 }
 
 function start_cache($cachefile, $cachetime = 3600){

@@ -21,9 +21,6 @@ start_cache('cache/index', 0);
 /* ******************************************************************************** */
 
 // Parse the journal :
-// $entries = array();
-// parse_journal(DIARY_DIRECTORY, $entries);
-
 $diary = new Diary(DIARY_DIRECTORY);
 $entries = $diary->getEntries();
 
