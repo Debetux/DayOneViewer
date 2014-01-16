@@ -24,10 +24,11 @@ require_once(__DIR__.'/classes/functions.php');
 /* ******************************************************************************** */
 
 // Parse the journal :
-// $diary = new Diary(DIARY_DIRECTORY, false);
-// $diary->createEntry();
+$diary = new Diary(DIARY_DIRECTORY, false);
+$entry = $diary->createEntry();
+$entry->generatePropertyListFromData();
 
-include(TEMPLATES_DIRECTORY.'plist.php');
+// include(TEMPLATES_DIRECTORY.'plist.php');
 
 
 /* ******************************************************************************** */

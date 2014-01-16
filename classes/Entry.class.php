@@ -40,34 +40,33 @@ class Entry implements ArrayAccess{
 	private function initNewEntry(){
 
 		$this->filename = Entry::gen_uuid();
-		$this->filepath = $this->entries_directory.$this->filename;
+		$this->filepath = $this->entries_directory.$this->filename.'beta';
 
-
-		/*
-		 * create a new CFPropertyList instance without loading any content
-		 */
-		$this->propertyListData = new CFPropertyList\CFPropertyList();
-
-		/*
-		 * Manuall Create the sample.xml.plist 
-		 */
-		// the Root element of the PList is a Dictionary
-		$this->propertyListData->add( $dict = new CFPropertyList\CFDictionary() );
-
-		$dict->add( 'Activity', new CFPropertyList\CFString( 'Stationary' ) );
-		$dict->add( 'Creation Date', new CFPropertyList\CFDate( time() ) );
-
-
-
-		// <key>Year Of Birth</key><integer>1965</integer>
-		$dict->add( 'Starred', new CFPropertyList\CFBoolean( false ) );
-
-
-		/*
-		 * Save PList as XML
-		 */
-		$this->propertyListData->saveXML( __DIR__.'/example-create-01.xml.plist' );
 	}
+
+
+	public function generatePropertyListFromData($save = true){
+
+		/*
+		 * This is a pretty bad implementation of templating I guess, I'll fix this later
+		 */
+
+
+		ob_start();
+			require TEMPLATES_DIRECTORY.'/plist.php';
+		$this->propertyListData = ob_get_clean();
+
+		if($save) $this->save();
+
+		return $this->propertyListData;
+	}
+
+	public function save() {
+	  $fh = fopen($this->filepath, 'wb');
+	  fwrite($fh, $this->propertyListData);
+	  fclose($fh);
+	}
+
 
 	/**
 	 * Parse the entry xml file.
