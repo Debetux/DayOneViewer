@@ -2,6 +2,11 @@
 
 define('DIARY_DIRECTORY', 'Journal.dayone/'); 
 define('TEMPLATES_DIRECTORY', __DIR__.'/templates/');
+define('DEVICE_AGENT', 'nginx webserver');
+define('HOST_NAME', 'Macbook');
+define('OS_AGENT', 'Mac OS X/16.4');
+define('SOFTWARE_AGENT', 'DayOneEdit 0.1');
+
 setlocale(LC_ALL, 'fr');
 
 /**

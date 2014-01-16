@@ -25,7 +25,7 @@
 
 	<ul id="contenu" class="journal">
 		<?php foreach($entries as $key => $entry): ?>
-			<?php if($key == 42) break; ?>
+			<?php if($key == 2) break; ?>
 			<?php // prep var
 				$previous_month_is_different = ($last_month != date('n', $entry['Creation Date']));
 				$next_month_is_different = (empty($entries[$key+1]) || date('n', $entry['Creation Date']) != date('n', $entries[$key+1]['Creation Date'])); // If next month is different from current month
@@ -76,26 +76,28 @@
 	<ul id="write_form" class="journal">
 			<!-- content -->
 			<li class="entry_content">
-				<h6 class="date"><a href="#<?php echo $entry['Creation Date']; ?>" id="<?php echo $entry['Creation Date']; ?>"><?php echo date('l j F Y, H:i', time()); ?></a></h6>
-				<br>
-				<!-- <p><textarea id="editor" placeholder="Your entry text..."></textarea></p> -->
-				<div id="editor"><textarea></textarea></div>
-				
-				<br>
-
-				<!-- location info and weather -->
-				
-				<div class="entry_info hidden" id="entry_info_form">
+				<form action="./" method="post">
+					<h6 class="date" name="date"><a href="#<?php echo $entry['Creation Date']; ?>" id="<?php echo $entry['Creation Date']; ?>"><?php echo date('l j F Y, H:i', time()); ?></a></h6>
+					<br>
+					<div id="editor"><textarea name="entry_text"></textarea></div>
 					
-				</div>
+					<br>
 
-				<input type="hidden" name="latitude"/>
-				<input type="hidden" name="longitude"/>
+					<!-- location info and weather -->
+					<div class="entry_info hidden" id="entry_info_form"></div>
 
-				<input type="submit" value="Add"/>
+					<input type="hidden" name="latitude"/>
+					<input type="hidden" name="longitude"/>
+
+					<input type="submit" value="Add"/>
+				</form>
 
 			</li>
 	</ul>
+
+	<?php if(!empty($_POST)): ?>
+		<?php pte($_POST); ?>
+	<?php endif; ?>
 
 	<script type="text/javascript">
 
@@ -114,7 +116,7 @@
 
 		console.log(url);
 
-		// Vanilla
+
 		var httpRequest = new XMLHttpRequest()
 		httpRequest.onreadystatechange = function (data) {
 			if (httpRequest.readyState === 4) {
