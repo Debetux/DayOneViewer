@@ -42,6 +42,10 @@ class Entry implements ArrayAccess{
 		$this->filename = Entry::gen_uuid();
 		$this->filepath = $this->entries_directory.$this->filename.'beta';
 
+		$this->entry_data_array['Creation Date'] = time();
+		$this->entry_data_array['Creator']['Generation Date'] = time();
+		$this->entry_data_array['UUID'] = $this->filename;
+
 	}
 
 
