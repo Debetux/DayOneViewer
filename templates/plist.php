@@ -24,18 +24,18 @@
 	</dict>
 
 	<?php if(!empty($entry['Entry Text'])): ?>
-		<key>Entry Text</key>
-		<string><?php echo $entry['Entry Text']; ?></string>
+	<key>Entry Text</key>
+	<string><?php echo $entry['Entry Text']; ?></string>
 	<?php endif; ?>
 
 	<?php if(!empty($entry['Location'])): ?>
-		<key>Location</key>
-		<dict>
-			<key>Latitude</key>
-			<real><?php echo $entry['Location']['Latitude']; ?></real>
-			<key>Longitude</key>
-			<real><?php echo $entry['Location']['Longitude']; ?></real>
-		</dict>
+	<key>Location</key>
+	<dict>
+		<key>Latitude</key>
+		<real><?php echo $entry['Location']['Latitude']; ?></real>
+		<key>Longitude</key>
+		<real><?php echo $entry['Location']['Longitude']; ?></real>
+	</dict>
 	<?php endif; ?>
 
 	<key>Starred</key>

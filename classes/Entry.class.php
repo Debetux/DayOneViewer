@@ -56,6 +56,8 @@ class Entry implements ArrayAccess{
 		 */
 
 
+		$entry = $this->entry_data_array;
+		
 		ob_start();
 			require TEMPLATES_DIRECTORY.'/plist.php';
 		$this->propertyListData = ob_get_clean();

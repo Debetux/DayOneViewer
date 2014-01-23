@@ -26,9 +26,14 @@ require_once(__DIR__.'/classes/functions.php');
 // Parse the journal :
 $diary = new Diary(DIARY_DIRECTORY, false);
 $entry = $diary->createEntry();
-$entry->generatePropertyListFromData();
 
-// include(TEMPLATES_DIRECTORY.'plist.php');
+$entry['Entry Text'] = $_POST['entry_text'];
+$entry['Location']['Latitude'] = $_POST['latitude'];
+$entry['Location']['Longitude'] = $_POST['longitude'];
+
+if(!empty($_POST)) $entry->generatePropertyListFromData();
+
+echo 'Done !';
 
 
 /* ******************************************************************************** */
