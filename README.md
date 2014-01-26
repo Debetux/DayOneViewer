@@ -7,5 +7,5 @@ If you've seen the code, yay, sorry for your eyes. I haven't thought about the a
 
 ---
 
-Adaptater : Dropbox, Box, filesystem
+Adapter : Dropbox, Box, filesystem
 Provider : DayOne, jrnl, other app
